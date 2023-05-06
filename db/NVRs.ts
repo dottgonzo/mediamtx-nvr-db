@@ -96,12 +96,10 @@ const NVRSchema = new Schema({
 interface NVRBaseDocument extends TNVR, Document {}
 
 export interface NVRDocument extends NVRBaseDocument {
-  _id: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
 export interface NVRPopulatedDocument extends NVRBaseDocument {
-  _id: string;
   createdAt: Date;
   updatedAt: Date;
 }
