@@ -16,6 +16,7 @@ export type TSyncEntry4MediaMtxConfig = {
 };
 export type TNVR = {
   enabled: boolean;
+  syncTime: Date;
   mediaMtxServer: TMediaMxServerConfig;
   ptzGateway: {
     uri: string;
@@ -90,6 +91,7 @@ const NVRSchema = new Schema({
     required: true,
   },
   cams: [_cams],
+  syncTime: { type: Date, required: true },
 });
 interface NVRBaseDocument extends TNVR, Document {}
 

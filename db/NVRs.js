@@ -38,6 +38,7 @@ const NVRSchema = new mongoose_1.Schema({
         required: true,
     },
     cams: [_cams],
+    syncTime: { type: Date, required: true },
 });
 exports.default = (0, mongoose_1.model)("NVRs", NVRSchema);
 //# sourceMappingURL=NVRs.js.map
