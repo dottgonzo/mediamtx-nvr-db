@@ -1,0 +1,38 @@
+{
+  "name": "mediamtx-nvr-db",
+  "version": "0.0.0",
+  "description": "Media MTX mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "build": "./node_modules/typescript/bin/tsc",
+    "watch-ts": "./node_modules/typescript/bin/tsc -w",
+    "release:patch": "npm version patch && git push && git push --tags && npm publish",
+    "release:minor": "npm version minor && git push && git push --tags && npm publish",
+    "release:major": "npm version major && git push && git push --tags && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/dottgonzo/mediamtx-nvr-db.git"
+  },
+  "keywords": [
+    "mediamtx",
+    "aler9"
+  ],
+  "author": "Dario Caruso",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/dottgonzo/mediamtx-nvr-db/issues"
+  },
+  "homepage": "https://github.com/dottgonzo/mediamtx-nvr-db#readme",
+  "devDependencies": {
+    "@types/node": "^18.16.5",
+    "aler9-server-manager": "^0.1.1",
+    "prettier": "^2.8.8",
+    "prettier-plugin-organize-imports": "^3.2.2",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "nodemongooselib": "^0.0.6"
+  }
+}
