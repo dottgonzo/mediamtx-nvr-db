@@ -1,6 +1,6 @@
 {
   "name": "mediamtx-nvr-db",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Media MTX mongodb",
   "main": "index.js",
   "scripts": {
