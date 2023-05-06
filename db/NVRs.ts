@@ -40,7 +40,7 @@ const _ptzGatewaySchema = new Schema(
     uri: { type: String, required: true },
     token: { type: String, required: true },
   },
-  { timestamps: false }
+  { timestamps: false, _id: false }
 );
 const _camPtzCapabilities = new Schema(
   {
@@ -48,14 +48,14 @@ const _camPtzCapabilities = new Schema(
     panTilt: { type: Boolean },
     clickToCenter: { type: Boolean },
   },
-  { timestamps: false }
+  { timestamps: false, _id: false }
 );
 const _camPtz = new Schema(
   {
     uri: { type: String, required: true },
     capabilities: { type: _camPtzCapabilities, required: true },
   },
-  { timestamps: false }
+  { timestamps: false, _id: false }
 );
 
 const _cams = new Schema(
@@ -64,7 +64,7 @@ const _cams = new Schema(
     mediaMtxPathConfig: { type: Schema.Types.Mixed, required: true },
     ptz: { type: _camPtz },
   },
-  { timestamps: false }
+  { timestamps: false, _id: false }
 );
 const _mediaMtxServerAuth = new Schema(
   {
@@ -72,14 +72,14 @@ const _mediaMtxServerAuth = new Schema(
     username: { type: String, required: true },
     password: { type: String, required: true },
   },
-  { timestamps: false }
+  { timestamps: false, _id: false }
 );
 const _mediaMtxServer = new Schema(
   {
     uri: { type: String, required: true },
     auth: { type: _mediaMtxServerAuth, required: true },
   },
-  { timestamps: false }
+  { timestamps: false, _id: false }
 );
 const NVRSchema = new Schema({
   ptzGateway: {
@@ -96,10 +96,12 @@ const NVRSchema = new Schema({
 interface NVRBaseDocument extends TNVR, Document {}
 
 export interface NVRDocument extends NVRBaseDocument {
+  _id: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
 export interface NVRPopulatedDocument extends NVRBaseDocument {
+  _id: string;
   createdAt: Date;
   updatedAt: Date;
 }
