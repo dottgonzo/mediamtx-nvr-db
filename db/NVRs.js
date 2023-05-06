@@ -5,10 +5,14 @@ const _ptzGatewaySchema = new mongoose_1.Schema({
     uri: { type: String, required: true },
     token: { type: String, required: true },
 }, { timestamps: false });
-const _camPtz = new mongoose_1.Schema({
+const _camPtzCapabilities = new mongoose_1.Schema({
     zoom: { type: Boolean },
     panTilt: { type: Boolean },
     clickToCenter: { type: Boolean },
+}, { timestamps: false });
+const _camPtz = new mongoose_1.Schema({
+    uri: { type: String, required: true },
+    capabilities: { type: _camPtzCapabilities, required: true },
 }, { timestamps: false });
 const _cams = new mongoose_1.Schema({
     pathName: { type: String, required: true },

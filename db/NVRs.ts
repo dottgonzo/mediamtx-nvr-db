@@ -25,9 +25,12 @@ export type TNVR = {
     pathName: string;
     mediaMtxPathConfig: TAler9PathAddOrEdit;
     ptz?: {
-      zoom?: boolean;
-      panTilt?: boolean;
-      clickToCenter?: boolean;
+      capabilities: {
+        zoom?: boolean;
+        panTilt?: boolean;
+        clickToCenter?: boolean;
+      };
+      uri: string;
     };
   }[];
 };
@@ -38,11 +41,18 @@ const _ptzGatewaySchema = new Schema(
   },
   { timestamps: false }
 );
-const _camPtz = new Schema(
+const _camPtzCapabilities = new Schema(
   {
     zoom: { type: Boolean },
     panTilt: { type: Boolean },
     clickToCenter: { type: Boolean },
+  },
+  { timestamps: false }
+);
+const _camPtz = new Schema(
+  {
+    uri: { type: String, required: true },
+    capabilities: { type: _camPtzCapabilities, required: true },
   },
   { timestamps: false }
 );
