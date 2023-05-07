@@ -2,7 +2,8 @@ import type { TAler9PathAddOrEdit } from "aler9-server-manager";
 import { model, Model, Schema } from "mongoose";
 
 export type TMediaMxServerConfig = {
-  uri: string;
+  apiUri: string;
+  webrtcUri: string;
   auth?: {
     type: "basic";
     username: string;
@@ -76,7 +77,8 @@ const _mediaMtxServerAuth = new Schema(
 );
 const _mediaMtxServer = new Schema(
   {
-    uri: { type: String, required: true },
+    apiUri: { type: String, required: true },
+    webrtcUri: { type: String, required: true },
     auth: { type: _mediaMtxServerAuth, required: true },
   },
   { timestamps: false, _id: false }

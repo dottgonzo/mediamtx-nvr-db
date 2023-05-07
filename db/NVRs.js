@@ -25,7 +25,8 @@ const _mediaMtxServerAuth = new mongoose_1.Schema({
     password: { type: String, required: true },
 }, { timestamps: false, _id: false });
 const _mediaMtxServer = new mongoose_1.Schema({
-    uri: { type: String, required: true },
+    apiUri: { type: String, required: true },
+    webrtcUri: { type: String, required: true },
     auth: { type: _mediaMtxServerAuth, required: true },
 }, { timestamps: false, _id: false });
 const NVRSchema = new mongoose_1.Schema({
