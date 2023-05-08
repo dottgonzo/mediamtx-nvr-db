@@ -1,6 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
+const _address = new mongoose_1.Schema({
+    publicIp: { type: String, required: true },
+    localIp: { type: String },
+    publicPort: { type: String, required: true },
+    localPort: { type: String },
+    publicHostname: { type: String },
+}, { timestamps: false, _id: false });
 const _ptzGatewaySchema = new mongoose_1.Schema({
     uri: { type: String, required: true },
     token: { type: String, required: true },
@@ -30,6 +37,11 @@ const _mediaMtxServer = new mongoose_1.Schema({
     auth: { type: _mediaMtxServerAuth, required: true },
 }, { timestamps: false, _id: false });
 const NVRSchema = new mongoose_1.Schema({
+    enabled: { type: Boolean, required: true },
+    address: {
+        type: _address,
+        required: true,
+    },
     ptzGateway: {
         type: _ptzGatewaySchema,
         required: true,

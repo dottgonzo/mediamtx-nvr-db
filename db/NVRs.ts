@@ -18,6 +18,13 @@ export type TSyncEntry4MediaMtxConfig = {
 export type TNVR = {
   enabled: boolean;
   syncTime: Date;
+  address: {
+    publicHostname?: string;
+    publicIp: string;
+    publicPort: string;
+    localIp?: string;
+    localPort?: string;
+  };
   mediaMtxServer: TMediaMxServerConfig;
   ptzGateway: {
     uri: string;
@@ -36,6 +43,16 @@ export type TNVR = {
     };
   }[];
 };
+const _address = new Schema(
+  {
+    publicIp: { type: String, required: true },
+    localIp: { type: String },
+    publicPort: { type: String, required: true },
+    localPort: { type: String },
+    publicHostname: { type: String },
+  },
+  { timestamps: false, _id: false }
+);
 const _ptzGatewaySchema = new Schema(
   {
     uri: { type: String, required: true },
@@ -84,6 +101,11 @@ const _mediaMtxServer = new Schema(
   { timestamps: false, _id: false }
 );
 const NVRSchema = new Schema({
+  enabled: { type: Boolean, required: true },
+  address: {
+    type: _address,
+    required: true,
+  },
   ptzGateway: {
     type: _ptzGatewaySchema,
     required: true,
