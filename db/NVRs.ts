@@ -15,6 +15,15 @@ export type TSyncEntry4MediaMtxConfig = {
   mediaMtxPathConfig: TAler9PathAddOrEdit;
   pathName: string;
 };
+export type TSupportedModel = "hikvision" | "dahua" | "axis" | "onvif";
+export type TCameraCapabilities = {
+  move?: boolean;
+  gotoHome?: boolean;
+  clickToCenter?: boolean;
+  clickByClick?: boolean;
+  joystick?: boolean;
+  zoom?: boolean;
+};
 export type TNVR = {
   enabled: boolean;
   syncTime: Date;
@@ -34,12 +43,17 @@ export type TNVR = {
     pathName: string;
     mediaMtxPathConfig: TAler9PathAddOrEdit;
     ptz?: {
-      capabilities: {
-        zoom?: boolean;
-        panTilt?: boolean;
-        clickToCenter?: boolean;
+      id: string;
+      cameraUri: {
+        hostname: string;
+        port: number;
+        username: string;
+        password: string;
       };
-      uri: string;
+      model?: TSupportedModel;
+      cgiUri?: string;
+      connectionTimeoutInSeconds?: number;
+      capabilities: TCameraCapabilities;
     };
   }[];
 };
