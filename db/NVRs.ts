@@ -70,15 +70,32 @@ const _ptzGatewaySchema = new Schema(
 const _camPtzCapabilities = new Schema(
   {
     zoom: { type: Boolean },
-    panTilt: { type: Boolean },
+    move: { type: Boolean },
     clickToCenter: { type: Boolean },
+    gotoHome: { type: Boolean },
   },
   { timestamps: false, _id: false }
 );
+const _camUri = new Schema(
+  {
+    hostname: { type: String, required: true },
+    port: { type: Number, required: true },
+    username: { type: String, required: true },
+    password: { type: String, required: true },
+  },
+  { timestamps: false, _id: false }
+);
+
 const _camPtz = new Schema(
   {
     uri: { type: String, required: true },
     capabilities: { type: _camPtzCapabilities, required: true },
+    id: { type: String, required: true },
+    model: { type: String },
+    cgiUri: { type: String },
+    connectionTimeoutInSeconds: { type: Number },
+
+    cameraUri: { type: _camUri, required: true },
   },
   { timestamps: false, _id: false }
 );

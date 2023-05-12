@@ -17,12 +17,24 @@ const _ptzGatewaySchema = new mongoose_1.Schema({
 }, { timestamps: false, _id: false });
 const _camPtzCapabilities = new mongoose_1.Schema({
     zoom: { type: Boolean },
-    panTilt: { type: Boolean },
+    move: { type: Boolean },
     clickToCenter: { type: Boolean },
+    gotoHome: { type: Boolean },
+}, { timestamps: false, _id: false });
+const _camUri = new mongoose_1.Schema({
+    hostname: { type: String, required: true },
+    port: { type: Number, required: true },
+    username: { type: String, required: true },
+    password: { type: String, required: true },
 }, { timestamps: false, _id: false });
 const _camPtz = new mongoose_1.Schema({
     uri: { type: String, required: true },
     capabilities: { type: _camPtzCapabilities, required: true },
+    id: { type: String, required: true },
+    model: { type: String },
+    cgiUri: { type: String },
+    connectionTimeoutInSeconds: { type: Number },
+    cameraUri: { type: _camUri, required: true },
 }, { timestamps: false, _id: false });
 const _cams = new mongoose_1.Schema({
     pathName: { type: String, required: true },
