@@ -4,6 +4,7 @@ import { model, Model, Schema } from "mongoose";
 export type TMediaMxServerConfig = {
   apiUri: string;
   webrtcUri: string;
+  rtspUri: string;
   auth?: {
     type: "basic";
     username: string;
@@ -34,6 +35,7 @@ export type TNVR = {
   };
   cams: {
     pathName: string;
+    type: "audio" | "video" | "regia";
     mediaMtxPathConfig: TAler9PathAddOrEdit;
     ptz?: {
       id: string;
@@ -103,6 +105,7 @@ const _camPtz = new Schema(
 const _cams = new Schema(
   {
     pathName: { type: String, required: true },
+    type: { type: String, required: true },
     mediaMtxPathConfig: { type: Schema.Types.Mixed, required: true },
     ptz: { type: _camPtz },
   },
@@ -120,6 +123,7 @@ const _mediaMtxServer = new Schema(
   {
     apiUri: { type: String, required: true },
     webrtcUri: { type: String, required: true },
+    rtspUri: { type: String, required: true },
     auth: { type: _mediaMtxServerAuth, required: true },
   },
   { timestamps: false, _id: false }

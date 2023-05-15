@@ -38,6 +38,7 @@ const _camPtz = new mongoose_1.Schema({
 }, { timestamps: false, _id: false });
 const _cams = new mongoose_1.Schema({
     pathName: { type: String, required: true },
+    type: { type: String, required: true },
     mediaMtxPathConfig: { type: mongoose_1.Schema.Types.Mixed, required: true },
     ptz: { type: _camPtz },
 }, { timestamps: false, _id: false });
@@ -49,6 +50,7 @@ const _mediaMtxServerAuth = new mongoose_1.Schema({
 const _mediaMtxServer = new mongoose_1.Schema({
     apiUri: { type: String, required: true },
     webrtcUri: { type: String, required: true },
+    rtspUri: { type: String, required: true },
     auth: { type: _mediaMtxServerAuth, required: true },
 }, { timestamps: false, _id: false });
 const NVRSchema = new mongoose_1.Schema({
