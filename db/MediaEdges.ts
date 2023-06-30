@@ -43,17 +43,27 @@ export type TCam = {
     capabilities: TCameraCapabilities;
   };
 };
-
+export type TMediaEdgeConfig = {
+  syncTime: Date;
+  mediaMtxServer: TMediaMxServerConfig;
+  ptzGateway: {
+    uri: string;
+    token: string;
+  };
+  cams: TCam[];
+};
 export type TMediaEdge = {
   enabled: boolean;
-  config: {
-    syncTime: Date;
-    mediaMtxServer: TMediaMxServerConfig;
-    ptzGateway: {
-      uri: string;
-      token: string;
-    };
-    cams: TCam[];
+  config: { current: TMediaEdgeConfig; next?: TMediaEdgeConfig };
+  status: {
+    time: Date;
+    uptime: number;
+    publicIp: string;
+    localIp: string;
+    onlineCams: {
+      pathName: string;
+      recordingSequenceName?: string;
+    }[];
   };
 };
 // const _address = new Schema(
@@ -132,18 +142,42 @@ const _mediaMtxServer = new Schema(
   },
   { timestamps: false, _id: false }
 );
-const _mediaEdgeConfig = new Schema({
-  ptzGateway: {
-    type: _ptzGatewaySchema,
-    required: true,
+const _mediaEdgeConfigTemplate = new Schema(
+  {
+    ptzGateway: {
+      type: _ptzGatewaySchema,
+      required: true,
+    },
+    mediaMtxServer: {
+      type: _mediaMtxServer,
+      required: true,
+    },
+    cams: [_cams],
+    syncTime: { type: Date, required: true },
   },
-  mediaMtxServer: {
-    type: _mediaMtxServer,
-    required: true,
+  { timestamps: false, _id: false }
+);
+const _mediaEdgeConfig = new Schema(
+  {
+    current: {
+      type: _mediaEdgeConfigTemplate,
+      required: true,
+    },
+    next: {
+      type: _mediaEdgeConfigTemplate,
+      required: false,
+    },
   },
-  cams: [_cams],
-  syncTime: { type: Date, required: true },
-});
+  { timestamps: false, _id: false }
+);
+
+const _mediaEdgeStatus = new Schema(
+  {
+    lastPingAt: { type: Date, required: true },
+    ip: { type: String, required: true },
+  },
+  { timestamps: false, _id: false }
+);
 const MediaEdgeSchema = new Schema({
   enabled: { type: Boolean, required: true },
   // address: {
@@ -152,6 +186,11 @@ const MediaEdgeSchema = new Schema({
   // },
   config: {
     type: _mediaEdgeConfig,
+    required: true,
+  },
+
+  status: {
+    type: _mediaEdgeStatus,
     required: true,
   },
 });
