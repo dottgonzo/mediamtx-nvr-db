@@ -43,15 +43,18 @@ export type TCam = {
     capabilities: TCameraCapabilities;
   };
 };
-export type TNVR = {
+
+export type TMediaEdge = {
   enabled: boolean;
-  syncTime: Date;
-  mediaMtxServer: TMediaMxServerConfig;
-  ptzGateway: {
-    uri: string;
-    token: string;
+  config: {
+    syncTime: Date;
+    mediaMtxServer: TMediaMxServerConfig;
+    ptzGateway: {
+      uri: string;
+      token: string;
+    };
+    cams: TCam[];
   };
-  cams: TCam[];
 };
 // const _address = new Schema(
 //   {
@@ -129,12 +132,7 @@ const _mediaMtxServer = new Schema(
   },
   { timestamps: false, _id: false }
 );
-const NVRSchema = new Schema({
-  enabled: { type: Boolean, required: true },
-  // address: {
-  //   type: _address,
-  //   required: true,
-  // },
+const _mediaEdgeConfig = new Schema({
   ptzGateway: {
     type: _ptzGatewaySchema,
     required: true,
@@ -146,16 +144,30 @@ const NVRSchema = new Schema({
   cams: [_cams],
   syncTime: { type: Date, required: true },
 });
-interface NVRBaseDocument extends TNVR, Document {}
+const MediaEdgeSchema = new Schema({
+  enabled: { type: Boolean, required: true },
+  // address: {
+  //   type: _address,
+  //   required: true,
+  // },
+  config: {
+    type: _mediaEdgeConfig,
+    required: true,
+  },
+});
+interface MediaEdgeBaseDocument extends TMediaEdge, Document {}
 
-export interface NVRDocument extends NVRBaseDocument {
+export interface MediaEdgeDocument extends MediaEdgeBaseDocument {
   createdAt?: Date;
   updatedAt?: Date;
 }
-export interface NVRPopulatedDocument extends NVRBaseDocument {
+export interface MediaEdgePopulatedDocument extends MediaEdgeBaseDocument {
   createdAt: Date;
   updatedAt: Date;
 }
-export interface NVRModel extends Model<NVRDocument> {}
+export interface MediaEdgeModel extends Model<MediaEdgeDocument> {}
 
-export default model<NVRDocument, NVRModel>("NVRs", NVRSchema);
+export default model<MediaEdgeDocument, MediaEdgeModel>(
+  "MediaEdges",
+  MediaEdgeSchema
+);
