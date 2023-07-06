@@ -39,7 +39,7 @@ const _camPtz = new mongoose_1.Schema({
     capabilities: { type: _camPtzCapabilities, required: true },
 }, { timestamps: false, _id: false });
 const _cams = new mongoose_1.Schema({
-    pathName: { type: String, required: true, unique: true },
+    pathName: { type: String, required: true },
     type: { type: String, required: true },
     mediaMtxPathConfig: { type: mongoose_1.Schema.Types.Mixed, required: true },
     ptz: { type: _camPtz },

@@ -119,7 +119,7 @@ const _camPtz = new Schema(
 
 const _cams = new Schema(
   {
-    pathName: { type: String, required: true, unique: true },
+    pathName: { type: String, required: true },
     type: { type: String, required: true },
     mediaMtxPathConfig: { type: Schema.Types.Mixed, required: true },
     ptz: { type: _camPtz },
