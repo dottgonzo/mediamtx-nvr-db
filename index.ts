@@ -1,10 +1,10 @@
 import type { ConnectOptions } from "mongoose";
 
 import initMongo from "nodemongooselib";
-import NVRs from "./db/NVRs";
+import MediaEdges from "./db/MediaEdges";
 
 export let db: {
-  NVRs: typeof NVRs;
+  MediaEdges: typeof MediaEdges;
 };
 
 export async function initDb(config: {
@@ -14,6 +14,6 @@ export async function initDb(config: {
   await initMongo(config);
   if (!db)
     db = {
-      NVRs: NVRs,
+      MediaEdges: MediaEdges,
     };
 }

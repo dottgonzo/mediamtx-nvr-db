@@ -20,6 +20,8 @@ const _camPtzCapabilities = new mongoose_1.Schema({
     move: { type: Boolean },
     clickToCenter: { type: Boolean },
     gotoHome: { type: Boolean },
+    clickByClick: { type: Boolean },
+    joystick: { type: Boolean },
 }, { timestamps: false, _id: false });
 const _camUri = new mongoose_1.Schema({
     hostname: { type: String, required: true },
@@ -28,16 +30,16 @@ const _camUri = new mongoose_1.Schema({
     password: { type: String, required: true },
 }, { timestamps: false, _id: false });
 const _camPtz = new mongoose_1.Schema({
-    uri: { type: String, required: true },
-    capabilities: { type: _camPtzCapabilities, required: true },
     id: { type: String, required: true },
+    cameraUri: { type: _camUri, required: true },
+    // uri: { type: String, required: true },
     model: { type: String },
     cgiUri: { type: String },
     connectionTimeoutInSeconds: { type: Number },
-    cameraUri: { type: _camUri, required: true },
+    capabilities: { type: _camPtzCapabilities, required: true },
 }, { timestamps: false, _id: false });
 const _cams = new mongoose_1.Schema({
-    pathName: { type: String, required: true },
+    pathName: { type: String, required: true, unique: true },
     type: { type: String, required: true },
     mediaMtxPathConfig: { type: mongoose_1.Schema.Types.Mixed, required: true },
     ptz: { type: _camPtz },
@@ -53,22 +55,53 @@ const _mediaMtxServer = new mongoose_1.Schema({
     rtspUri: { type: String, required: true },
     auth: { type: _mediaMtxServerAuth, required: true },
 }, { timestamps: false, _id: false });
-const NVRSchema = new mongoose_1.Schema({
+const _mediaEdgeConfigTemplate = new mongoose_1.Schema({
+    syncTime: { type: Date, required: true },
+    mediaMtxServer: {
+        type: _mediaMtxServer,
+        required: true,
+    },
+    ptzGateway: {
+        type: _ptzGatewaySchema,
+        required: true,
+    },
+    cams: [_cams],
+}, { timestamps: false, _id: false });
+const _mediaEdgeConfig = new mongoose_1.Schema({
+    current: {
+        type: _mediaEdgeConfigTemplate,
+        required: true,
+    },
+    next: {
+        type: _mediaEdgeConfigTemplate,
+        required: false,
+    },
+}, { timestamps: false, _id: false });
+const _onlineCamStatus = new mongoose_1.Schema({
+    pathName: { type: String, required: true },
+    recordingSequenceName: { type: String },
+}, { timestamps: false, _id: false });
+const _mediaEdgeStatus = new mongoose_1.Schema({
+    time: { type: Date, required: true },
+    uptime: { type: Date, required: true },
+    publicIp: { type: String, required: true },
+    localIp: { type: String, required: true },
+    onlineCams: [_onlineCamStatus],
+}, { timestamps: false, _id: false });
+const MediaEdgeSchema = new mongoose_1.Schema({
     enabled: { type: Boolean, required: true },
     // address: {
     //   type: _address,
     //   required: true,
     // },
-    ptzGateway: {
-        type: _ptzGatewaySchema,
+    config: {
+        type: _mediaEdgeConfig,
         required: true,
     },
-    mediaMtxServer: {
-        type: _mediaMtxServer,
+    status: {
+        type: _mediaEdgeStatus,
         required: true,
     },
-    cams: [_cams],
-    syncTime: { type: Date, required: true },
 });
-exports.default = (0, mongoose_1.model)("NVRs", NVRSchema);
-//# sourceMappingURL=NVRs.js.map
+exports.default = (0, mongoose_1.model)("MediaEdges", MediaEdgeSchema);
+//# sourceMappingURL=MediaEdges.js.map

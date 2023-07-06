@@ -89,6 +89,8 @@ const _camPtzCapabilities = new Schema(
     move: { type: Boolean },
     clickToCenter: { type: Boolean },
     gotoHome: { type: Boolean },
+    clickByClick: { type: Boolean },
+    joystick: { type: Boolean },
   },
   { timestamps: false, _id: false }
 );
@@ -104,14 +106,13 @@ const _camUri = new Schema(
 
 const _camPtz = new Schema(
   {
-    uri: { type: String, required: true },
-    capabilities: { type: _camPtzCapabilities, required: true },
     id: { type: String, required: true },
+    cameraUri: { type: _camUri, required: true },
+    // uri: { type: String, required: true },
     model: { type: String },
     cgiUri: { type: String },
     connectionTimeoutInSeconds: { type: Number },
-
-    cameraUri: { type: _camUri, required: true },
+    capabilities: { type: _camPtzCapabilities, required: true },
   },
   { timestamps: false, _id: false }
 );
@@ -144,16 +145,16 @@ const _mediaMtxServer = new Schema(
 );
 const _mediaEdgeConfigTemplate = new Schema(
   {
-    ptzGateway: {
-      type: _ptzGatewaySchema,
-      required: true,
-    },
+    syncTime: { type: Date, required: true },
     mediaMtxServer: {
       type: _mediaMtxServer,
       required: true,
     },
+    ptzGateway: {
+      type: _ptzGatewaySchema,
+      required: true,
+    },
     cams: [_cams],
-    syncTime: { type: Date, required: true },
   },
   { timestamps: false, _id: false }
 );
@@ -171,10 +172,21 @@ const _mediaEdgeConfig = new Schema(
   { timestamps: false, _id: false }
 );
 
+const _onlineCamStatus = new Schema(
+  {
+    pathName: { type: String, required: true },
+    recordingSequenceName: { type: String },
+  },
+  { timestamps: false, _id: false }
+);
+
 const _mediaEdgeStatus = new Schema(
   {
-    lastPingAt: { type: Date, required: true },
-    ip: { type: String, required: true },
+    time: { type: Date, required: true },
+    uptime: { type: Date, required: true },
+    publicIp: { type: String, required: true },
+    localIp: { type: String, required: true },
+    onlineCams: [_onlineCamStatus],
   },
   { timestamps: false, _id: false }
 );
