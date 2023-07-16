@@ -52,12 +52,11 @@ export type TMediaEdgeConfig = {
   };
   cams: TCam[];
 };
-
 export type TMediaEdge = {
   enabled: boolean;
   config: { current: TMediaEdgeConfig; next?: TMediaEdgeConfig };
   status: {
-    lastPingAt: Date;
+    time: Date;
     uptime: number;
     publicIp: string;
     localIp: string;
@@ -67,7 +66,6 @@ export type TMediaEdge = {
     }[];
   };
 };
-
 // const _address = new Schema(
 //   {
 //     publicIp: { type: String, required: true },
@@ -208,7 +206,6 @@ const MediaEdgeSchema = new Schema({
     required: true,
   },
 });
-
 interface MediaEdgeBaseDocument extends TMediaEdge, Document {}
 
 export interface MediaEdgeDocument extends MediaEdgeBaseDocument {
