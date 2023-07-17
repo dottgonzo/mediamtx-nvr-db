@@ -220,6 +220,6 @@ export interface MediaEdgePopulatedDocument extends MediaEdgeBaseDocument {
 export interface MediaEdgeModel extends Model<MediaEdgeDocument> {}
 
 export default model<MediaEdgeDocument, MediaEdgeModel>(
-  "MediaEdges",
+  "mediaedges",
   MediaEdgeSchema
 );

@@ -103,5 +103,5 @@ const MediaEdgeSchema = new mongoose_1.Schema({
         required: true,
     },
 });
-exports.default = (0, mongoose_1.model)("MediaEdges", MediaEdgeSchema);
-//# sourceMappingURL=MediaEdges.js.map
+exports.default = (0, mongoose_1.model)("mediaedges", MediaEdgeSchema);
+//# sourceMappingURL=mediaedges.js.map
