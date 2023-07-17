@@ -52,19 +52,20 @@ export type TMediaEdgeConfig = {
   };
   cams: TCam[];
 };
+export type TMediaEdgeStatus = {
+  time: Date;
+  uptime: number;
+  publicIp: string;
+  localIp: string;
+  onlineCams: {
+    pathName: string;
+    recordingSequenceName?: string;
+  }[];
+};
 export type TMediaEdge = {
   enabled: boolean;
   config: { current: TMediaEdgeConfig; next?: TMediaEdgeConfig };
-  status: {
-    time: Date;
-    uptime: number;
-    publicIp: string;
-    localIp: string;
-    onlineCams: {
-      pathName: string;
-      recordingSequenceName?: string;
-    }[];
-  };
+  status: TMediaEdgeStatus;
 };
 // const _address = new Schema(
 //   {
