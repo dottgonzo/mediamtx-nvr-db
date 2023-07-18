@@ -84,8 +84,8 @@ const _onlineCamStatus = new mongoose_1.Schema({
 const _mediaEdgeStatus = new mongoose_1.Schema({
     time: { type: Date, required: true },
     uptime: { type: Date, required: true },
-    publicIp: [{ type: String, required: true }],
-    localIp: [{ type: String, required: true }],
+    publicIps: [{ type: String, required: true }],
+    localIps: [{ type: String, required: true }],
     onlineCams: [_onlineCamStatus],
 }, { timestamps: false, _id: false });
 const MediaEdgeSchema = new mongoose_1.Schema({
