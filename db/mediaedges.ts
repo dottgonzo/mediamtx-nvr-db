@@ -55,8 +55,8 @@ export type TMediaEdgeConfig = {
 export type TMediaEdgeStatus = {
   time: Date;
   uptime: number;
-  publicIp: string;
-  localIp: string;
+  publicIps: string[];
+  localIps: string[];
   onlineCams: {
     pathName: string;
     recordingSequenceName?: string;
@@ -185,8 +185,8 @@ const _mediaEdgeStatus = new Schema(
   {
     time: { type: Date, required: true },
     uptime: { type: Date, required: true },
-    publicIp: { type: String, required: true },
-    localIp: { type: String, required: true },
+    publicIp: [{ type: String, required: true }],
+    localIp: [{ type: String, required: true }],
     onlineCams: [_onlineCamStatus],
   },
   { timestamps: false, _id: false }
