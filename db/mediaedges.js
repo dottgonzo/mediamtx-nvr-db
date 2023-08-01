@@ -94,6 +94,11 @@ const MediaEdgeSchema = new mongoose_1.Schema({
     //   type: _address,
     //   required: true,
     // },
+    type: {
+        type: mongoose_1.Enum,
+        enum: ["local", "cloud", "manager"],
+        required: true,
+    },
     config: {
         type: _mediaEdgeConfig,
         required: true,

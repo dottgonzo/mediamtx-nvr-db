@@ -1,5 +1,5 @@
 import type { TAler9PathAddOrEdit } from "aler9-server-manager";
-import { model, Model, Schema } from "mongoose";
+import { Enum, Model, Schema, model } from "mongoose";
 
 export type TMediaMxServerConfig = {
   apiUri: string;
@@ -66,6 +66,7 @@ export type TMediaEdge = {
   enabled: boolean;
   config: { current: TMediaEdgeConfig; next?: TMediaEdgeConfig };
   status: TMediaEdgeStatus;
+  type: "local" | "cloud" | "manager";
 };
 // const _address = new Schema(
 //   {
@@ -197,6 +198,11 @@ const MediaEdgeSchema = new Schema({
   //   type: _address,
   //   required: true,
   // },
+  type: {
+    type: Enum,
+    enum: ["local", "cloud", "manager"],
+    required: true,
+  },
   config: {
     type: _mediaEdgeConfig,
     required: true,
