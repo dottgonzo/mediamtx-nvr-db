@@ -11,11 +11,7 @@ export type TMediaMxServerConfig = {
     password: string;
   };
 };
-export type TSyncEntry4MediaMtxConfig = {
-  mediaMtxServer?: TMediaMxServerConfig;
-  mediaMtxPathConfig: TAler9PathAddOrEdit;
-  pathName: string;
-};
+
 export type TSupportedModel = "hikvision" | "dahua" | "axis" | "onvif";
 export type TCameraCapabilities = {
   move?: boolean;
@@ -67,7 +63,7 @@ export type TMediaEdge = {
   enabled: boolean;
   config: { current: TMediaEdgeConfig; next?: TMediaEdgeConfig };
   status: TMediaEdgeStatus;
-  type: "local" | "cloud" | "manager";
+  type: "edge" | "cloud" | "controller";
 };
 // const _address = new Schema(
 //   {
