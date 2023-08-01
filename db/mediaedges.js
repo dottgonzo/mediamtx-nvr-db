@@ -65,6 +65,7 @@ const _mediaEdgeConfigTemplate = new mongoose_1.Schema({
         type: _ptzGatewaySchema,
         required: true,
     },
+    cloudServerHostname: { type: String, required: true },
     cams: [_cams],
 }, { timestamps: false, _id: false });
 const _mediaEdgeConfig = new mongoose_1.Schema({

@@ -51,6 +51,7 @@ export type TMediaEdgeConfig = {
     token: string;
   };
   cams: TCam[];
+  cloudServerHostname: string;
 };
 export type TMediaEdgeStatus = {
   time: Date;
@@ -156,6 +157,7 @@ const _mediaEdgeConfigTemplate = new Schema(
       type: _ptzGatewaySchema,
       required: true,
     },
+    cloudServerHostname: { type: String, required: true },
     cams: [_cams],
   },
   { timestamps: false, _id: false }
@@ -213,7 +215,7 @@ const MediaEdgeSchema = new Schema({
     required: true,
   },
 });
-interface MediaEdgeBaseDocument extends TMediaEdge, Document {}
+interface MediaEdgeBaseDocument extends TMediaEdge, Document { }
 
 export interface MediaEdgeDocument extends MediaEdgeBaseDocument {
   createdAt?: Date;
@@ -223,7 +225,7 @@ export interface MediaEdgePopulatedDocument extends MediaEdgeBaseDocument {
   createdAt: Date;
   updatedAt: Date;
 }
-export interface MediaEdgeModel extends Model<MediaEdgeDocument> {}
+export interface MediaEdgeModel extends Model<MediaEdgeDocument> { }
 
 export default model<MediaEdgeDocument, MediaEdgeModel>(
   "mediaedges",
