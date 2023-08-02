@@ -57,6 +57,11 @@ export type TMediaEdgeStatus = {
   onlineCams: {
     pathName: string;
     recordingSequenceName?: string;
+    sourceType: "rtspSession" | string
+    readyTime: Date
+    tracks: string[]
+    bytesReceived: number
+    readers: number
   }[];
 };
 export type TMediaEdge = {
@@ -176,6 +181,11 @@ const _onlineCamStatus = new Schema(
   {
     pathName: { type: String, required: true },
     recordingSequenceName: { type: String },
+    sourceType: { type: String, required: true },
+    readyTime: { type: Date, required: true },
+    tracks: [{ type: String, required: true }],
+    bytesReceived: { type: Number, required: true },
+    readers: { type: Number, required: true },
   },
   { timestamps: false, _id: false }
 );

@@ -81,6 +81,11 @@ const _mediaEdgeConfig = new mongoose_1.Schema({
 const _onlineCamStatus = new mongoose_1.Schema({
     pathName: { type: String, required: true },
     recordingSequenceName: { type: String },
+    sourceType: { type: String, required: true },
+    readyTime: { type: Date, required: true },
+    tracks: [{ type: String, required: true }],
+    bytesReceived: { type: Number, required: true },
+    readers: { type: Number, required: true },
 }, { timestamps: false, _id: false });
 const _mediaEdgeStatus = new mongoose_1.Schema({
     time: { type: Date, required: true },
