@@ -2,12 +2,24 @@ import { Model, Schema, model } from "mongoose";
 
 export type TMediaManager = {
   edges: any[];
-  members: any[];
+  members: {
+    member: any;
+    role: string;
+  }[];
 };
+
+const _member = new Schema(
+  {
+    member: { type: Schema.Types.ObjectId, ref: "Member" },
+    role: { type: String, required: true },
+  },
+  { timestamps: false, _id: false }
+);
 
 const MediaManagerSchema = new Schema({
   edges: [{ type: Schema.Types.ObjectId, ref: "mediaedges" }],
-  members: [{ type: Schema.Types.ObjectId, ref: "Member" }],
+  members: [{ type: _member }],
+  // cameras: [{ type: { type: Schema.Types.ObjectId, ref: "Camera" } }],
 });
 
 interface MediaManagerBaseDocument extends TMediaManager, Document {}
